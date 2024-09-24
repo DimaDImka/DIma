@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мини-приложение</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Градиент фона */
+            color: white;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin: 0;
+        }
+
+        .progress-container {
+            position: absolute;
+            bottom: 20px;
+            width: 80%;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 20px;
+            width: 0;
+            background-color: #4CAF50; /* Цвет полоски */
+            transition: width 0.1s ease;
+        }
+
+        .timer {
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Добро пожаловать!</h1>
+    <p>Это пример мини-приложения для Telegram с отсчётом времени.</p>
+
+    <!-- Полоска отсчёта времени -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
+    <!-- Таймер -->
+    <div class="timer" id="timer">Осталось времени: 10 сек</div>
+
+    <script>
+        // Время отсчёта в секундах
+        let countdownTime = 10; // 10 секунд
+        const progressBar = document.getElementById('progress-bar');
+        const timerText = document.getElementById('timer');
+
+        // Интервал обновления полоски и таймера
+        const interval = setInterval(() => {
+            // Уменьшаем время
+            countdownTime--;
+
+            // Обновляем ширину полоски (расчёт ширины в процентах)
+            const progressPercentage = (10 - countdownTime) * 10;
+            progressBar.style.width = progressPercentage + '%';
+
+            // Обновляем текст таймера
+            timerText.textContent = `Осталось времени: ${countdownTime} сек`;
+
+            // Когда время заканчивается
+            if (countdownTime === 0) {
+                clearInterval(interval);
+                timerText.textContent = "Время истекло!";
+            }
+        }, 1000); // Обновление каждую секунду
+    </script>
+
+</body>
+</html>
